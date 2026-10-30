@@ -4,7 +4,7 @@ import styles from './AdminPage.module.css';
 import { getTickets, deleteTicket } from '@/api/fixit.api';
 import type { Ticket } from '@/api/types';
 import { Button, Badge, Modal, ConfirmDialog, EmptyState, Skeleton, Pagination } from '@/components/ui';
-import { ShieldIcon, TrashIcon, AlertTriangleIcon, ImageIcon, EyeIcon, XIcon, CalendarIcon, ClockIcon } from '@/components/icons';
+import { ShieldIcon, TrashIcon, AlertTriangleIcon, ImageIcon, EyeIcon, XIcon } from '@/components/icons';
 import { formatDateToIST, formatDateOnlyIST } from '@/utils/date';
 
 export const AdminPage: React.FC = () => {
