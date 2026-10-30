@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.summary {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+}
+
+.count {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

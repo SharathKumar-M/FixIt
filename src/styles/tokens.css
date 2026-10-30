@@ -1,0 +1,81 @@
+/**
+ * FixIt Design System Tokens — Premium Edition
+ * Midnight Navy, Electric Blue, Restrained Teal, Warm Amber, Critical Red, Clean Neutrals.
+ */
+
+:root {
+  /* Brand Palettes */
+  --color-navy-darkest: #070D1F;
+  --color-navy-primary: #0F172A;
+  --color-navy-surface: #1E293B;
+  --color-navy-border: #334155;
+
+  --color-electric-blue: #2563EB;
+  --color-electric-blue-hover: #1D4ED8;
+  --color-electric-blue-light: #EFF6FF;
+  --color-electric-blue-border: #BFDBFE;
+  --color-electric-blue-glow: rgba(37, 99, 235, 0.25);
+
+  /* Neutrals */
+  --color-bg-app: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  --color-bg-subtle: #F1F5F9;
+  --color-bg-hover: #E2E8F0;
+
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748B;
+  --color-text-inverse: #FFFFFF;
+
+  --color-border-subtle: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  /* Status Colors */
+  /* Open / In-progress: Electric Blue */
+  --status-open-text: #1D4ED8;
+  --status-open-bg: #EFF6FF;
+  --status-open-border: #BFDBFE;
+
+  /* Resolved: Restrained Teal */
+  --status-resolved-text: #0F766E;
+  --status-resolved-bg: #F0FDFA;
+  --status-resolved-border: #99F6E4;
+
+  /* Acknowledged: Emerald */
+  --status-ack-text: #065F46;
+  --status-ack-bg: #ECFDF5;
+  --status-ack-border: #A7F3D0;
+
+  /* Overdue / Critical: Red */
+  --status-overdue-text: #B91C1C;
+  --status-overdue-bg: #FEF2F2;
+  --status-overdue-border: #FECACA;
+
+  /* Warning: Amber */
+  --color-warning-text: #B45309;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #FDE68A;
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Modern Refined Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 4px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.1), 0 4px 8px -4px rgba(15, 23, 42, 0.04);
+  --shadow-xl: 0 24px 36px -6px rgba(15, 23, 42, 0.14), 0 10px 14px -6px rgba(15, 23, 42, 0.06);
+
+  /* Typography */
+  --font-family-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}

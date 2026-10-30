@@ -1,0 +1,35 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-subtle) 25%,
+    #E2E8F0 50%,
+    var(--color-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+.cardSkeleton {
+  height: 160px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 1rem;
+}
+
+.textSkeleton {
+  height: 16px;
+  margin-bottom: 0.5rem;
+}
+
+.circleSkeleton {
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

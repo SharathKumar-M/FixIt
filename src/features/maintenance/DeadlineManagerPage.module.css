@@ -1,0 +1,117 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+
+.deadlineCard {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.deadlineCard:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-electric-blue-border);
+}
+
+.overdueBorder {
+  border-left: 4px solid var(--status-overdue-text);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticketId {
+  font-family: monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-navy-border);
+  background-color: var(--color-bg-subtle);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-xs);
+}
+
+.cardTitle {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+}
+
+.deadlineContainer {
+  background-color: #F8FAFC;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.deadlineLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.deadlineDate {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.overdueText {
+  color: var(--status-overdue-text);
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border-subtle);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}

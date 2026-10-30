@@ -1,0 +1,140 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, #0B132B 0%, #1C2541 100%);
+  border-radius: var(--radius-xl);
+  padding: 2rem 2.25rem;
+  color: #FFFFFF;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.tagline {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #60A5FA;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: #94A3B8;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Priority Work Queue */
+.queueSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.tableWrapper {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.th {
+  background-color: var(--color-bg-subtle);
+  padding: 0.875rem 1.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.tr {
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.tr:last-child {
+  border-bottom: none;
+}
+
+.tr:hover {
+  background-color: #F8FAFC;
+}
+
+.td {
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  vertical-align: middle;
+}
+
+.ticketIdCol {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--color-navy-border);
+}
+
+.titleCol {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .tableWrapper {
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,88 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: var(--radius-full);
+  line-height: 1;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.open {
+  background-color: var(--status-open-bg);
+  color: var(--status-open-text);
+  border-color: var(--status-open-border);
+}
+
+.resolved {
+  background-color: var(--status-resolved-bg);
+  color: var(--status-resolved-text);
+  border-color: var(--status-resolved-border);
+}
+
+.acknowledged {
+  background-color: var(--status-ack-bg);
+  color: var(--status-ack-text);
+  border-color: var(--status-ack-border);
+}
+
+.overdue {
+  background-color: var(--status-overdue-bg);
+  color: var(--status-overdue-text);
+  border-color: var(--status-overdue-border);
+  font-weight: 700;
+}
+
+.category {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  border-color: var(--color-border-subtle);
+}
+
+.role {
+  background-color: #EDE9FE;
+  color: #6D28D9;
+  border-color: #DDD6FE;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.pulseDot {
+  position: relative;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--status-overdue-text);
+}
+
+.pulseDot::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 50%;
+  background-color: rgba(220, 38, 38, 0.4);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}

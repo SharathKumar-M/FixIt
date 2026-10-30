@@ -1,0 +1,89 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.titleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* Filter Controls Bar */
+.filterBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 0.875rem 1.25rem;
+  box-shadow: var(--shadow-xs);
+  flex-wrap: wrap;
+}
+
+.searchBox {
+  flex: 1;
+  min-width: 240px;
+  max-width: 400px;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background-color: var(--color-bg-subtle);
+  padding: 0.25rem;
+  border-radius: var(--radius-lg);
+}
+
+.tab {
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.tabActive {
+  background-color: #FFFFFF;
+  color: var(--color-electric-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.ticketGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .ticketGrid {
+    grid-template-columns: 1fr;
+  }
+}

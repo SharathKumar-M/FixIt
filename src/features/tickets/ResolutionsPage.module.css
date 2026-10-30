@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 1.5rem;
+}
+
+.resolutionCard {
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.resolutionCard:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-strong);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ticketId {
+  font-family: monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--color-navy-border);
+  background-color: var(--color-bg-subtle);
+  padding: 0.125rem 0.5rem;
+  border-radius: var(--radius-xs);
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+}
+
+.noteContainer {
+  background-color: var(--status-resolved-bg);
+  border: 1px solid var(--status-resolved-border);
+  border-radius: var(--radius-md);
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.noteLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--status-resolved-text);
+  text-transform: uppercase;
+}
+
+.noteText {
+  font-size: 0.875rem;
+  color: var(--color-navy-darkest);
+  line-height: 1.45;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border-subtle);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
