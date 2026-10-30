@@ -138,7 +138,17 @@ export function saveStoredIssueTypes(items: IssueType[]) {
 export function getStoredTickets(): Ticket[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.TICKETS);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed: Ticket[] = JSON.parse(raw);
+      // Sanitize any dead blob: URLs that may have been saved from prior sessions
+      return parsed.map((t) => {
+        if (t.photo_url && t.photo_url.startsWith('blob:')) {
+          const fallback = INITIAL_TICKETS.find((init) => init.id === t.id)?.photo_url;
+          return { ...t, photo_url: fallback };
+        }
+        return t;
+      });
+    }
   } catch {}
   saveStoredTickets(INITIAL_TICKETS);
   return INITIAL_TICKETS;
@@ -181,6 +191,18 @@ export function mockProfileForEmail(email: string, isAdmin = false): { profile: 
       dept,
     },
   };
+}
+
+/**
+ * Converts a browser File object to a persistent, self-contained base64 data URL.
+ */
+function fileToDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = () => reject(new Error('Failed to read image file into data URL'));
+    reader.readAsDataURL(file);
+  });
 }
 
 /**
@@ -332,7 +354,11 @@ export async function simulateBackendRequest<T>(
         issueTypeId = String(options.formData.get('issue_type_id') || issueTypeId);
         const photoFile = options.formData.get('photo');
         if (photoFile && photoFile instanceof File && photoFile.size > 0) {
-          photoUrl = URL.createObjectURL(photoFile);
+          try {
+            photoUrl = await fileToDataUrl(photoFile);
+          } catch {
+            photoUrl = undefined;
+          }
         }
       } else if (options.json) {
         title = options.json.title || title;
@@ -403,7 +429,11 @@ export async function simulateBackendRequest<T>(
         }
         const photoFile = options.formData.get('photo');
         if (photoFile && photoFile instanceof File && photoFile.size > 0) {
-          patchData.photo_url = URL.createObjectURL(photoFile);
+          try {
+            patchData.photo_url = await fileToDataUrl(photoFile);
+          } catch {
+            // retain existing
+          }
         }
         if (options.formData.get('remove_photo') === 'true') {
           patchData.photo_url = undefined;

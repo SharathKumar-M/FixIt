@@ -13,6 +13,8 @@ export interface TicketCardProps {
 }
 
 export const TicketCard: React.FC<TicketCardProps> = ({ ticket, onClick, className = '' }) => {
+  const [imageError, setImageError] = React.useState(false);
+
   const categoryName = typeof ticket.issue_type === 'object' && ticket.issue_type !== null
     ? ticket.issue_type.name
     : ticket.issue_type || 'General Maintenance';
@@ -47,21 +49,18 @@ export const TicketCard: React.FC<TicketCardProps> = ({ ticket, onClick, classNa
       </div>
 
       <div className={styles.body}>
-        {ticket.photo_url ? (
+        {ticket.photo_url && !imageError ? (
           <div className={styles.thumbnailWrapper}>
             <img
               src={ticket.photo_url}
               alt={ticket.title}
               className={styles.thumbnail}
               loading="lazy"
-              onError={(e) => {
-                // Graceful fallback if image link expires or fails to load
-                (e.currentTarget as HTMLElement).style.display = 'none';
-              }}
+              onError={() => setImageError(true)}
             />
           </div>
         ) : (
-          <div className={styles.thumbnailWrapper} aria-hidden="true">
+          <div className={styles.thumbnailWrapper} aria-hidden="true" title="No photograph attached">
             <ImageIcon size={24} style={{ color: 'var(--color-text-muted)' }} />
           </div>
         )}

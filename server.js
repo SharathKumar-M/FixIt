@@ -146,17 +146,51 @@ function parseBody(req) {
           reject(err);
         }
       } else if (contentType.includes('multipart/form-data')) {
-        // Simple multipart text field extraction
-        const str = buffer.toString('utf8');
-        const boundary = contentType.split('boundary=')[1];
+        // Robust multipart binary parser for form fields and image attachments
+        const boundaryMatch = contentType.match(/boundary=(?:"([^"]+)"|([^;]+))/i);
+        const boundary = boundaryMatch ? (boundaryMatch[1] || boundaryMatch[2]).trim() : null;
         const result = {};
+
         if (boundary) {
-          const parts = str.split(`--${boundary}`);
-          for (const part of parts) {
-            const nameMatch = part.match(/name="([^"]+)"/);
-            if (nameMatch && !part.includes('filename="')) {
-              const value = part.split('\r\n\r\n')[1]?.split('\r\n')[0];
-              if (value !== undefined) result[nameMatch[1]] = value.trim();
+          const boundaryBuf = Buffer.from(`--${boundary}`);
+          let searchPos = 0;
+
+          while (true) {
+            const startIdx = buffer.indexOf(boundaryBuf, searchPos);
+            if (startIdx === -1) break;
+
+            const nextIdx = buffer.indexOf(boundaryBuf, startIdx + boundaryBuf.length);
+            if (nextIdx === -1) break;
+
+            const part = buffer.subarray(startIdx + boundaryBuf.length, nextIdx);
+            searchPos = nextIdx;
+
+            const sep = Buffer.from('\r\n\r\n');
+            const sepIdx = part.indexOf(sep);
+            if (sepIdx === -1) continue;
+
+            const headerStr = part.subarray(0, sepIdx).toString('utf8');
+            let content = part.subarray(sepIdx + 4);
+
+            // Strip trailing \r\n before next boundary
+            if (content.length >= 2 && content[content.length - 2] === 0x0d && content[content.length - 1] === 0x0a) {
+              content = content.subarray(0, content.length - 2);
+            }
+
+            const nameMatch = headerStr.match(/name="([^"]+)"/);
+            if (!nameMatch) continue;
+            const fieldName = nameMatch[1];
+
+            const filenameMatch = headerStr.match(/filename="([^"]*)"/);
+            if (filenameMatch && filenameMatch[1]) {
+              const ctMatch = headerStr.match(/Content-Type:\s*([^\r\n]+)/i);
+              const mime = ctMatch ? ctMatch[1].trim() : 'image/jpeg';
+              if (content.length > 0) {
+                // Store as self-contained base64 data URI for reliable, cross-origin rendering
+                result[fieldName] = `data:${mime};base64,${content.toString('base64')}`;
+              }
+            } else {
+              result[fieldName] = content.toString('utf8').trim();
             }
           }
         }
@@ -320,6 +354,7 @@ const server = http.createServer(async (req, res) => {
           issue_type_id: body.issue_type_id || db.issueTypes[0].id,
           issue_type: category,
           status: 'open',
+          photo_url: body.photo || body.photo_url || null,
           created_at: new Date().toISOString(),
           expected_by: new Date(Date.now() + 48 * 3600000).toISOString().split('T')[0],
           overdue: false,
@@ -390,6 +425,8 @@ const server = http.createServer(async (req, res) => {
         const body = await parseBody(req);
         if (body.remove_photo === 'true' || body.remove_photo === true) {
           body.photo_url = null;
+        } else if (body.photo) {
+          body.photo_url = body.photo;
         }
         if (body.issue_type_id) {
           const cat = db.issueTypes.find((t) => t.id === body.issue_type_id);

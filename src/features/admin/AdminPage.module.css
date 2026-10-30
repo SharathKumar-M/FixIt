@@ -84,3 +84,199 @@
   color: var(--color-text-primary);
   max-width: 280px;
 }
+
+.photoThumbContainer {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-bg-subtle);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.photoThumbContainer:hover {
+  transform: scale(1.08);
+  border-color: var(--color-electric-blue);
+  box-shadow: var(--shadow-sm);
+}
+
+.photoThumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbHoverBadge {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.photoThumbContainer:hover .thumbHoverBadge {
+  opacity: 1;
+}
+
+.noPhotoTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  background-color: var(--color-bg-subtle);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-xs);
+  border: 1px dashed var(--color-border-subtle);
+}
+
+/* Modal Inspection Styles */
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modalPhotoFrame {
+  position: relative;
+  width: 100%;
+  max-height: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: #0F172A;
+  border: 1px solid var(--color-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalPhotoImg {
+  max-width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  cursor: zoom-in;
+}
+
+.modalPhotoBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.85), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+}
+
+.modalDetailGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  background-color: var(--color-bg-subtle);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.modalDetailItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.modalDetailLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+}
+
+.modalDetailVal {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.modalDescBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.modalDescText {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-border-subtle);
+  padding: 0.875rem 1rem;
+  border-radius: var(--radius-md);
+  white-space: pre-wrap;
+}
+
+/* Fullscreen Lightbox */
+.lightboxBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.92);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+.lightboxImage {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.lightboxCloseBtn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.lightboxCloseBtn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

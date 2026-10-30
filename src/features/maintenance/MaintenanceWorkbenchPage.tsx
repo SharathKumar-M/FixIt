@@ -14,6 +14,9 @@ import {
 import {
   SearchIcon,
   AlertTriangleIcon,
+  ImageIcon,
+  EyeIcon,
+  XIcon,
 } from '@/components/icons';
 import { formatDateToIST, formatDateOnlyIST } from '@/utils/date';
 import { UpdateStatusModal } from './UpdateStatusModal';
@@ -41,6 +44,7 @@ export const MaintenanceWorkbenchPage: React.FC = () => {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState(false);
   const [statusTarget, setStatusTarget] = useState<'open' | 'resolved'>('resolved');
   const [isTATModalOpen, setIsTATModalOpen] = useState(false);
+  const [lightboxPhoto, setLightboxPhoto] = useState<string | null>(null);
 
   const fetchTickets = async (cursor: string | null = null, signal?: AbortSignal) => {
     setIsLoading(true);
@@ -187,6 +191,7 @@ export const MaintenanceWorkbenchPage: React.FC = () => {
             <thead>
               <tr>
                 <th className={styles.th}>Ticket ID</th>
+                <th className={styles.th}>Defect Photo</th>
                 <th className={styles.th}>Issue Title</th>
                 <th className={styles.th}>Category</th>
                 <th className={styles.th}>Reporter</th>
@@ -208,6 +213,32 @@ export const MaintenanceWorkbenchPage: React.FC = () => {
                   <tr key={ticket.id} className={styles.tr}>
                     <td className={`${styles.td} ${styles.idCol}`}>
                       #{ticket.id.slice(-6).toUpperCase()}
+                    </td>
+                    <td className={styles.td}>
+                      {ticket.photo_url ? (
+                        <div
+                          className={styles.photoThumbContainer}
+                          onClick={() => setLightboxPhoto(ticket.photo_url || null)}
+                          title="Click to view defect photo in lightbox"
+                        >
+                          <img
+                            src={ticket.photo_url}
+                            alt={ticket.title}
+                            className={styles.photoThumb}
+                            loading="lazy"
+                            onError={(e) => {
+                              (e.currentTarget as HTMLElement).style.display = 'none';
+                            }}
+                          />
+                          <div className={styles.thumbHoverBadge}>
+                            <EyeIcon size={14} />
+                          </div>
+                        </div>
+                      ) : (
+                        <span className={styles.noPhotoTag}>
+                          <ImageIcon size={13} /> None
+                        </span>
+                      )}
                     </td>
                     <td className={`${styles.td} ${styles.titleCol}`}>{ticket.title}</td>
                     <td className={styles.td}>
@@ -336,6 +367,31 @@ export const MaintenanceWorkbenchPage: React.FC = () => {
             onSuccess={handleTicketUpdated}
           />
         </>
+      )}
+
+      {/* Fullscreen Photo Lightbox */}
+      {lightboxPhoto && (
+        <div
+          className={styles.lightboxBackdrop}
+          onClick={() => setLightboxPhoto(null)}
+          role="dialog"
+          aria-label="Enlarged defect photo preview"
+        >
+          <button
+            type="button"
+            className={styles.lightboxCloseBtn}
+            onClick={() => setLightboxPhoto(null)}
+            aria-label="Close photo preview"
+          >
+            <XIcon size={22} />
+          </button>
+          <img
+            src={lightboxPhoto}
+            alt="Enlarged issue defect preview"
+            className={styles.lightboxImage}
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
       )}
     </div>
   );

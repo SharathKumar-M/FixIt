@@ -54,6 +54,7 @@ export const TicketDetailPage: React.FC = () => {
 
   // Lightbox
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   // Photo Uploading State
   const [isUploadingPhoto, setIsUploadingPhoto] = useState(false);
@@ -85,6 +86,10 @@ export const TicketDetailPage: React.FC = () => {
     fetchTicket(controller.signal);
     return () => controller.abort();
   }, [ticketId]);
+
+  useEffect(() => {
+    setImageError(false);
+  }, [ticket?.photo_url]);
 
   // Handle Reporter Deleting / Withdrawing Ticket
   const handleDeleteTicket = async () => {
@@ -394,13 +399,14 @@ export const TicketDetailPage: React.FC = () => {
               )}
             </div>
 
-            {ticket.photo_url ? (
+            {ticket.photo_url && !imageError ? (
               <div className={styles.photoFrame}>
                 <img
                   src={ticket.photo_url}
                   alt={ticket.title}
                   className={styles.photoImg}
                   onClick={() => setIsLightboxOpen(true)}
+                  onError={() => setImageError(true)}
                   title="Click to zoom in full resolution lightbox"
                 />
                 <div className={styles.photoOverlayBar}>
@@ -417,6 +423,28 @@ export const TicketDetailPage: React.FC = () => {
                     </Button>
                   </div>
                 </div>
+              </div>
+            ) : ticket.photo_url && imageError ? (
+              <div
+                className={styles.emptyPhotoDropzone}
+                style={{ borderStyle: 'solid', borderColor: '#FECACA', backgroundColor: '#FEF2F2' }}
+              >
+                <AlertTriangleIcon size={28} style={{ color: '#DC2626' }} />
+                <strong style={{ color: '#991B1B' }}>Photograph Preview Unavailable</strong>
+                <span style={{ fontSize: '0.8125rem', color: '#B91C1C' }}>
+                  The attached image could not be loaded. You can upload a replacement photo below.
+                </span>
+                {isOpen && (isOwner || !isMaintenanceStaff) && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => photoInputRef.current?.click()}
+                    loading={isUploadingPhoto}
+                    icon={<UploadIcon size={14} />}
+                  >
+                    Upload Replacement Photo
+                  </Button>
+                )}
               </div>
             ) : isOpen && (isOwner || !isMaintenanceStaff) ? (
               /* Add Photo Callout when none exists */
